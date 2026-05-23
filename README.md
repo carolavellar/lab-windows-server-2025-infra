@@ -117,7 +117,6 @@ Os passos principais podem ser encontrados em:
 
 **Ana Carolina Avellar** – [GitHub](https://github.com/carolavellar)  
 Este laboratório faz parte do meu portfólio de Infraestrutura TI.  
-📫 Contato: (acavellar@hotmail.com)
 
 ---
 
