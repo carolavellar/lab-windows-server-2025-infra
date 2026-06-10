@@ -1,123 +1,62 @@
 # Laboratório Windows Server 2025 – Infraestrutura Corporativa
 
-> **Status:** Ambiente funcional, em uso para estudos e simulação de cenário empresarial.  
-> **Domínio:** `carol.corp`  
-> **Controlador de Domínio:** DC01 (Windows Server 2025 em inglês)  
-> **Cliente:** CL01-WIN10 (Windows 10 Pro)
+**Status:** Ambiente funcional, em uso para estudos e simulação de cenário empresarial.  
+**Domínio:** `carol.corp`  
+**Controlador de Domínio:** `DC01` (Windows Server 2025 Datacenter - Core/GUI em Inglês)  
+**Cliente de Teste:** `CL01-WIN10` (Windows 10 Pro)  
 
 ---
 
 ## 🎯 Objetivo
 
-Simular um ambiente corporativo Microsoft completo, demonstrando habilidades em:
-- Administração de **Active Directory Domain Services (AD DS)**
-- Criação de **Unidades Organizacionais (OUs)** por departamentos
-- Aplicação de **Políticas de Grupo (GPO)** para segurança e padronização
-- Serviços de rede: **DNS, DHCP** (implicitamente configurados)
-- Gerenciamento centralizado com **Remote Desktop Manager (RDM)**
-- Virtualização com **VMware Workstation**
+Simular um ambiente de infraestrutura corporativa Microsoft completo e aderente às melhores práticas de mercado, demonstrando competências em:
+* **Active Directory Domain Services (AD DS):** Arquitetura, promoção e gerenciamento de identidades.
+* **Segregação de Escopo:** Estruturação lógica de Unidades Organizacionais (OUs) orientada a departamentos.
+* **Group Policy Objects (GPOs):** Implementação de políticas estritas de segurança (*hardening*) e automação de ambiente.
+* **Serviços de Rede Essenciais:** Provisionamento e gerenciamento implícito de DNS e DHCP.
+* **Operação Eficiente:** Gerenciamento centralizado de conexões remotas utilizando o *Remote Desktop Manager (RDM)*.
+* **Virtualização Local:** Orquestração de hosts e redes isoladas via *VMware Workstation*.
 
 ---
 
-## 🖥️ Ambiente Virtualizado (VMware)
+## 🖥️ Ambiente Virtualizado (VMware Workstation)
 
-| Máquina | Sistema | RAM | CPUs | Disco | Função |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **DC01** | Windows Server 2025 (inglês) | 8 GB | 4 | 120 GB + 20 GB | Domain Controller, AD, DNS, DHCP |
-| **CL01-WIN10** | Windows 10 Pro | 4 GB | 2 | 60 GB | Cliente domínio |
+| Ativo | Sistema Operacional | Memória RAM | Processadores (vCPUs) | Armazenamento | Função no Ambiente |
+| :--- | :--- | :---: | :---: | :---: | :--- |
+| **DC01** | Windows Server 2025 (EN-US) | 8 GB | 4 | 120 GB + 20 GB | Controlador de Domínio Principal (AD DS), DNS e DHCP |
+| **CL01-WIN10** | Windows 10 Pro (PT-BR) | 4 GB | 2 | 60 GB | Estação de Trabalho de Usuário (Ingressada no Domínio) |
 
-- **Rede:** Modo NAT (192.168.157.0/24)  
-- **DC01 IP:** 192.168.157.128 (conforme RDM)
-
-![Config DC01](./prints/vmware-dc01-config.png)  
-![Config CL01](./prints/vmware-cl01-config.png)
+* **Segmentação de Rede:** Modo NAT (`192.168.157.0/24`)  
+* **Endereçamento IP Fixo (DC01):** `192.168.157.128` (Garantindo persistência para gerência via RDM)
 
 ---
 
-## 🔐 Active Directory – Estrutura de OUs
+## 🔐 Active Directory – Arquitetura de Unidades Organizacionais (OUs)
 
-Domínio: `carol.corp`
+A árvore do domínio `carol.corp` foi projetada visando a alta escalabilidade e aplicação granular de políticas. A estrutura separa rigorosamente contas de colaboradores de ativos físicos (computadores):
 
 ```text
 carol.corp
 ├── Matriz
 │   ├── Financeiro
 │   │   ├── Computadores
-│   │   └── Usuários
+│   │   └── Usuarios
 │   └── RH
 │       ├── Computadores
-│       └── Usuários
+│       └── Usuarios
 ├── TI
 │   ├── Computadores
-│   └── Usuários
-└── (Builtin, Computers, Domain Controllers, Users padrão)
+│   └── Usuarios
+└── (OUs Nativas: Builtin, Computers, Domain Controllers, Users)
 
-**Prints de evidência:**
+📸 Evidências de Validação (AD Users and Computers)Diretório Geral e Domain Controller Centralizado: Exibe o servidor principal catalogado nativamente com a tipagem Global Catalog (GC) e mapeamento de topologia de site.Estrutura do Departamento Financeiro:Estrutura do Departamento de Recursos Humanos (RH):Estrutura do Departamento de Tecnologia da Informação (TI): Nota: As OUs de computadores dos demais setores encontram-se estruturadas e prontas para provisionamento automatizado de novas estações de trabalho conforme a escalabilidade do negócio.
 
-- OU Matriz:  
-  ![OU Matriz](./prints/ad-ou-matriz.png)
+⚙️ Políticas de Grupo (GPO) AplicadasForam desenvolvidas e vinculadas GPOs focadas em Hardening (segurança de endpoint) e padronização da experiência do usuário final:Nome da GPOTipo de ConfiguraçãoImpacto / Efeito PráticoEscopo de VinculaçãoGPO_Bloqueio_USBComputerBloqueio estrito de leitura/escrita de dispositivos de armazenamento USB removíveis (Prevenção de vazamento de dados).OUs de ComputadoresGPO_Bloqueio_CMDUserRestringe o acesso ao Prompt de Comando (CMD) para mitigar a execução de scripts não autorizados por usuários comuns.OUs de UsuáriosGPO_Bloqueio_Painel_ControleUserImpede o acesso às configurações do Painel de Controle e Settings do sistema, mitigando alterações indesejadas no SO.OUs de UsuáriosGPO_Bloqueio_WallpaperUserForça a aplicação do papel de parede padrão corporativo da empresa e bloqueia a alteração pelo usuário.OUs de UsuáriosGPO_Mapeamento_Unidade_SUser (Drive Maps)Provisiona de forma totalmente automatizada o mapeamento do File Server na unidade de rede S: no momento do logon.OUs de Usuários(Insira aqui o seu print do console GPMC se tiver)
 
-- Departamentos Financeiro e RH:  
-  ![Financeiro e RH](./prints/ad-ou-financeiro-rh.png)
+🛠️ Ferramentas de Gerenciamento UtilizadasRemote Desktop Manager (RDM): Utilizado como console centralizado para sessões administrativas seguras via RDP no DC01.Server Manager: Dashboard central para auditoria de status das roles ativas (AD DS, DNS, DHCP).
 
-- Departamento de TI:  
-  ![TI](./prints/ad-ou-ti.png)
+📚 Habilidades Técnicas DemonstradasInstalação, provisionamento e sysprep de sistemas operacionais de servidor Microsoft em idioma nativo (Inglês).Arquitetura e implantação de Domain Controllers ativos.Administração de identidades e grupos de segurança globais no Active Directory.Provisionamento avançado de GPOs utilizando filtros de escopo precisos.Configuração e governança de permissões em compartilhamentos de rede automatizados.Documentação de arquitetura técnica de infraestrutura.
 
----
+🔗 Referências TécnicasO ambiente foi construído seguindo rigorosamente os guias de design e boas práticas da documentação oficial da Microsoft:Microsoft Learn – Active Directory Domain Services ArchitectureGroup Policy Management and Hardening Guide
 
-## ⚙️ Políticas de Grupo (GPO) Aplicadas
-
-Foram criadas e vinculadas GPOs para endurecimento (hardening) e padronização:
-
-| GPO | Efeito | Aplicada a |
-|-----|--------|-------------|
-| `GPO_Bloqueio_UBS` | Bloqueia dispositivos USB | OUs de Computadores |
-| `GPO_Bloqueio_CMD` | Restringe acesso ao prompt de comando | OUs de Computadores |
-| `GPO_Bloqueio_Panel de Controle` | Bloqueia acesso ao Painel de Controle | OUs de Computadores |
-| `GPO_Bloqueio_Wallpaper` | Força wallpaper padrão da empresa | OUs de Computadores |
-| `GPO_Mapeamento_Unidade_S` | Mapeia unidade de rede S: automaticamente | OUs de Usuários |
-
-![Lista de GPOs](./prints/gpmc-gpos-list.png)
-
----
-
-## 🛠️ Ferramentas de Gerenciamento
-
-- **Remote Desktop Manager (RDM)** – Acesso centralizado ao DC01 via RDP  
-  ![RDM Entry](./prints/rdm-dc01-entry.png)
-
-- **Server Manager** – Roles instaladas: AD DS, DNS, DHCP  
-  ![Server Manager Roles](./prints/server-manager-roles.png)
-
----
-
-## 📚 Habilidades Demonstradas
-
-- Instalação e configuração de Windows Server em inglês  
-- Promoção a Domain Controller e criação de domínio  
-- Estruturação de OUs por departamento  
-- Criação e vinculação de GPOs de segurança  
-- Mapeamento de unidade de rede via GPO  
-- Virtualização com VMware Workstation  
-- Documentação técnica organizada
-
----
-
-## 🔗 Como Reproduzir
-
-Este ambiente foi construído do zero seguindo documentação oficial Microsoft.  
-Os passos principais podem ser encontrados em:
-
-- [Microsoft Learn – Active Directory Domain Services](https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/get-started/virtual-dc/adds-on-premises-virtualization)
-- [Gerenciamento de GPOs](https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/group-policy/group-policy-overview)
-
----
-
-## 👩‍💻 Autora
-
-**Ana Carolina Avellar** – [GitHub](https://github.com/carolavellar)  
-Este laboratório faz parte do meu portfólio de Infraestrutura TI.  
-
----
-
-*Última atualização: Maio/2026*
+👩‍💻 AutoraAna Carolina Avellar – GitHubProfissional em transição de carreira, focada em Administração de Infraestrutura de TI e Cloud Computing. ---Última atualização: Junho / 2026
