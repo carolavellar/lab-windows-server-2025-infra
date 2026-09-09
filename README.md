@@ -3,7 +3,7 @@
 **Status:** Ambiente funcional, em uso para estudos e simulação de cenário empresarial.  
 **Domínio:** `carol.corp`  
 **Controlador de Domínio:** `DC01` (Windows Server 2025 Datacenter - Core/GUI em Inglês)  
-**Ativo de Monitoramento:** `DC02` (Ubuntu Server 24.04 LTS)  
+**Ativo de Monitoramento:** `DC02` (Ubuntu Server 26.04 LTS)  
 **Cliente de Teste:** `CL01-WIN10` (Windows 10 Pro)  
 
 ---
@@ -25,7 +25,7 @@ Simular um ambiente de infraestrutura corporativa híbrido completo e aderente �
 | Ativo | Sistema Operacional | Memória RAM | Processadores (vCPUs) | Armazenamento | Função no Ambiente |
 | :--- | :--- | :---: | :---: | :---: | :--- |
 | **DC01** | Windows Server 2025 (EN-US) | 8 GB | 4 | 120 GB + 20 GB | Controlador de Domínio Principal (AD DS), DNS e DHCP |
-| **DC02** | Ubuntu Server 24.04 (Linux) | 2 GB | 2 | 30 GB | Servidor de Apoio, Banco de Dados PostgreSQL e Zabbix Server |
+| **DC02** | Ubuntu Server 26.04 (Linux) | 2 GB | 2 | 30 GB | Servidor de Apoio, Banco de Dados PostgreSQL e Zabbix Server |
 | **CL01-WIN10** | Windows 10 Pro (PT-BR) | 4 GB | 2 | 60 GB | Estação de Trabalho de Usuário (Ingressada no Domínio) |
 
 * **Segmentação de Rede:** Modo NAT (`192.168.157.0/24`)  
@@ -65,7 +65,7 @@ GPO_Mapeamento_Unidade_S,User (Drive Maps),Provisiona de forma totalmente automa
 **Status:** Ambiente funcional, em uso para estudos e simulação de cenário empresarial.  
 **Domínio:** `carol.corp`  
 **Controlador de Domínio:** `DC01` (Windows Server 2025 Datacenter - Core/GUI em Inglês)  
-**Ativo de Monitoramento:** `DC02` (Ubuntu Server 24.04 LTS)  
+**Ativo de Monitoramento:** `DC02` (Ubuntu Server 26.04 LTS)  
 **Cliente de Teste:** `CL01-WIN10` (Windows 10 Pro)  
 
 ---
@@ -87,7 +87,7 @@ Simular um ambiente de infraestrutura corporativa híbrido completo e aderente �
 | Ativo | Sistema Operacional | Memória RAM | Processadores (vCPUs) | Armazenamento | Função no Ambiente |
 | :--- | :--- | :---: | :---: | :---: | :--- |
 | **DC01** | Windows Server 2025 (EN-US) | 8 GB | 4 | 120 GB + 20 GB | Controlador de Domínio Principal (AD DS), DNS e DHCP |
-| **DC02** | Ubuntu Server 24.04 (Linux) | 2 GB | 2 | 30 GB | Servidor de Apoio, Banco de Dados PostgreSQL e Zabbix Server |
+| **DC02** | Ubuntu Server 26.04 (Linux) | 2 GB | 2 | 30 GB | Servidor de Apoio, Banco de Dados PostgreSQL e Zabbix Server |
 | **CL01-WIN10** | Windows 10 Pro (PT-BR) | 4 GB | 2 | 60 GB | Estação de Trabalho de Usuário (Ingressada no Domínio) |
 
 * **Segmentação de Rede:** Modo NAT (`192.168.157.0/24`)  
