@@ -204,6 +204,37 @@ Focado na simulação real de uma operação de Centro de Controle Operacional (
 
 ---
 
+## 🐧 Ambiente Linux & Monitoramento Ativo (Zabbix)
+
+Para complementar o ambiente híbrido, foi provisionado um servidor **Ubuntu Server 26.04 LTS** responsável por hospedar a stack de observabilidade.
+
+### Serviços Configurados:
+*   **Zabbix Server:** Monitoramento ativo de métricas (CPU, RAM, Disco).
+*   **Nginx:** Servidor web para interface do Zabbix.
+*   **PostgreSQL:** Banco de dados para persistência das métricas.
+
+### Evidências de Validação (Linux/Zabbix):
+
+*   **Status dos Serviços:** 
+    ![Nginx](./06_Linux_Zabbix/06%20systemctl%20status%20nginx.png)
+    ![PostgreSQL](./06_Linux_Zabbix/07%20systemctl%20status%20postgresql.png)
+    ![Zabbix](./06_Linux_Zabbix/08%20systemctl%20status%20zabbix-serve....png)
+
+*   **Rede e Sistema:** 
+    ![Rede e IP](./06_Linux_Zabbix/05%20Rede%20e%20IP.png)
+    ![Ubuntu](./06_Linux_Zabbix/04%20Print%20mostrando%20Ubuntu26.04%20lts.png)
+
+*   **Monitoramento no Zabbix:** 
+    ![Hosts](./06_Linux_Zabbix/09%20Hosts.png)
+    ![Latest Data](./06_Linux_Zabbix/10%20Latest%20Data.png)
+    ![Problems](./06_Linux_Zabbix/11%20Problems.png)
+
+*   **Banco de Dados e Recursos:** 
+    ![PostgreSQL Banco](./06_Linux_Zabbix/01%20Banco%20de%20Dados%20PostgreSQL%20(Print%20mostrando%20o%20banco%20de%20dados%20zabbix%20cri...).png)
+    ![RAM](./06_Linux_Zabbix/02%20Mostra%20a%20memória%20RAM.png)
+    ![Disco](./06_Linux_Zabbix/03%20Mostra%20o%20disco.png)
+
+
 ## 🛠️ Ferramentas de Gerenciamento Utilizadas
 
 * **Remote Desktop Manager (RDM):** Utilizado como console centralizado para sessões administrativas seguras via RDP no DC01.
@@ -241,7 +272,7 @@ Profissional com sólida base técnica em Administração de Infraestrutura de T
 
 ---
 
-Última atualização: Junho / 2026
+Última atualização: Outubro / 2026
 
 ```
 
